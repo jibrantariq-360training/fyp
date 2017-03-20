@@ -1,11 +1,11 @@
 export class Event {
 	id: number;
-	title: string ='';
+	startdate : string ='';
 	name: string ='';
 	details: string ='';
-	
-	completed: boolean= false;
-	
+	enddate: string ='';
+	complete: boolean = false;
+
 	constructor(values: Object={}) {
 		Object.assign(this,values);
 	}

@@ -8,11 +8,14 @@ import {Event} from '../model/event';
 export class EventDataService {
 	
 	lastId: number = 0;
-	events: Event[] = [];
 	private url = 'http://vowme-rest/events'; 
 
 
- 	constructor (private http: Http) {}
+ 	constructor (private http: Http) {
+
+ 		
+
+ 	}
 
 
  	getEventById(id:number): Observable<Event[]> {
@@ -22,16 +25,11 @@ export class EventDataService {
  				   .catch( (error:any) => Observable.throw(error.json().error || 'Server error') );
  	}
 
-	addEvent(body: Object): Observable<Event[]> { 
-		let bodyString = JSON.stringify(body);
-		 const oheaders = new Headers();
-		 oheaders.append('Content-Type', 'application/json');
-		 oheaders.append('Access-Control-Allow-Origin', '*');
-		 const options = new RequestOptions({ headers: oheaders });
-
-		return this.http.post(this.url, body, options) 
+	addEvent(body: Event): Observable<Event[]> { 
+   	 let bodyString = JSON.stringify(body);
+		return this.http.post(this.url, body) 
                          .map((res:Response) => res.json()) 
-                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+                         .catch((error:any) => Observable.throw(error));
 		
 	}
 
@@ -43,11 +41,7 @@ export class EventDataService {
 
 	updateEventById(id:number, body: Object = {}): Observable<Event[]>{
 		let bodyString = JSON.stringify(body);
-		const oheaders = new Headers();
-		 oheaders.append('Content-Type', 'application/json');
-		 oheaders.append('Access-Control-Allow-Origin', '*');
-		 const options = new RequestOptions({ headers: oheaders });
-		return this.http.put(`${this.url}/${body['id']}`, body, options) 
+		return this.http.put(`${this.url}/${body['id']}`, body) 
                          .map((res:Response) => res.json()) 
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 	}

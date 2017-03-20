@@ -32,22 +32,34 @@ $app->get('/events/{id}', function ($request, $response, $args) {
 });
 
 $app->post('/events', function ($request, $response, $args) {
-	$events = App\Event::all();
+     $this->logger->info("Post Event Fire ");       
+
+     $json = $request->getParsedBody();
+     $event = App\Event::create($json);
+
+     $this->logger->info("Post Event Ends "+$event->id+" is created");       
      return $response
     		->withStatus(200)
-    		->withJson(($events));
+            ->withJson(( $event ));
+            
 });
 
 $app->delete('/events/{id}', function ($request, $response, $args) {
-   	$events = App\Event::all();
-   	 return $response
+     $this->logger->info("Delete Event Fire ");          	 
+        
+     $event = App\Event::find($args['id']);
+     $event->delete();
+     return $response
     		->withStatus(200)
-    		->withJson(($events)); 
+    		->withJson(($event)); 
 });
 
 $app->put('/events/{id}', function ($request, $response, $args) {
-   	$events = App\Event::all();
+    $this->logger->info("Update Event Fire ");               
+   	$json = $request->getParsedBody();
+    $event = App\Event::find($args['id'])->update($json);
+
    	 return $response
     		->withStatus(200)
-    		->withJson(($events));
+    		->withJson(($event));
 });

@@ -1,0 +1,4 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+yourvolunteers.com	TRUE	/	FALSE	1999999999	JSESSIONID	C7CD3218B2B34AF5C95089D8F426F973
+
